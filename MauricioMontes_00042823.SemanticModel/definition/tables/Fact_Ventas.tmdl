@@ -56,23 +56,25 @@ table Fact_Ventas
 
 	column 'Costo Vehículo'
 		dataType: double
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: 93eb156b-deba-4fe7-94bd-e895c21f950b
 		summarizeBy: sum
 		sourceColumn: Costo Vehículo
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"currencyCulture":"es-US"}
 
 	column 'Precio Venta sin IGV'
 		dataType: double
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: 1b47b80c-4180-422e-8288-7ea9c74b74fe
 		summarizeBy: sum
 		sourceColumn: Precio Venta sin IGV
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"currencyCulture":"es-US"}
 
 	column IGV
 		dataType: double
@@ -103,20 +105,22 @@ table Fact_Ventas
 		annotation SummarizationSetBy = Automatic
 
 	column Impuesto = (Fact_Ventas[Precio Venta sin IGV] * Fact_Ventas[IGV]) - (Fact_Ventas[Costo Vehículo]*Fact_Ventas[IGV])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: d56d6991-6017-434c-b425-df0803d0692a
 		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"currencyCulture":"es-US"}
 
 	column 'Precio Ventas netas' = Fact_Ventas[Precio Venta sin IGV] - Fact_Ventas[Impuesto]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: 1d88ae62-9d32-4c6e-bf03-9ff49303fbb1
 		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"currencyCulture":"es-US"}
 
 	partition Fact_Ventas = m
 		mode: import
