@@ -1,0 +1,101 @@
+table Promedios
+	lineageTag: b95aedbd-cfd5-45fd-b473-36272e376791
+
+	measure 'Promedio Publicidad Radio' =
+			CALCULATE(
+			    AVERAGE(Fact_Ventas[Precio Ventas netas]),
+			    FILTER(Fact_Ventas, Fact_Ventas[Canal] == 1)
+			)
+		lineageTag: 5b170fbf-fe9c-4f68-b1db-6b5ee6e8fca7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promedio Publicidad Google' =
+			CALCULATE(
+			    AVERAGE(Fact_Ventas[Precio Ventas netas]),
+			    FILTER(Fact_Ventas, Fact_Ventas[Canal] == 2)
+			)
+		lineageTag: a8f16f63-4d3c-4151-8d12-53880bf06e6c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promedio Publicidad Newsletter' =
+			CALCULATE(
+			    AVERAGE(Fact_Ventas[Precio Ventas netas]),
+			    FILTER(Fact_Ventas, Fact_Ventas[Canal] == 3)
+			)
+		lineageTag: 5ecf3dd3-7e48-4f72-95d5-5fb80fb0a460
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promedio Email en Frío' =
+			CALCULATE(
+			    AVERAGE(Fact_Ventas[Precio Ventas netas]),
+			    FILTER(Fact_Ventas, Fact_Ventas[Canal] == 4)
+			)
+		lineageTag: f9a5f0cf-680a-4855-832f-a28818e953d0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promedio Publicidad Facebook' =
+			CALCULATE(
+			    AVERAGE(Fact_Ventas[Precio Ventas netas]),
+			    FILTER(Fact_Ventas, Fact_Ventas[Canal] == 5)
+			)
+		lineageTag: 606093f8-d4fe-4365-8098-c6b4d9ffaf99
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promedio Desconocidos' =
+			CALCULATE(
+			    AVERAGE(Fact_Ventas[Precio Ventas netas]),
+			    FILTER(Fact_Ventas, Fact_Ventas[Canal] == 6)
+			)
+		lineageTag: 8e48379e-6c64-4fc0-9637-b273fb5dfb84
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promedio Referidos' =
+			CALCULATE(
+			    AVERAGE(Fact_Ventas[Precio Ventas netas]),
+			    FILTER(Fact_Ventas, Fact_Ventas[Canal] == 7)
+			)
+		lineageTag: c6c712c9-de32-48e0-bfb9-ddcdbdb4a297
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promedio CRM' =
+			CALCULATE(
+			    AVERAGE(Fact_Ventas[Precio Ventas netas]),
+			    FILTER(Fact_Ventas, Fact_Ventas[Canal] == 8)
+			)
+		lineageTag: 7f2c3a6c-3606-453a-88f2-bca0af51fc48
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promedio Llamada en Frío' =
+			CALCULATE(
+			    AVERAGE(Fact_Ventas[Precio Ventas netas]),
+			    FILTER(Fact_Ventas, Fact_Ventas[Canal] == 9)
+			)
+		lineageTag: 03564730-ce3d-47a1-89c7-b9706e3825a1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		formatString: 0
+		lineageTag: 1218f05a-89cc-477d-978a-0d129ef10010
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Promedios = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 5b5eca7e2c4b45808625466f8e1cf2d3
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

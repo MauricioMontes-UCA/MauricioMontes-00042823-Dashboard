@@ -1,0 +1,58 @@
+table Dim_Vendedor
+	lineageTag: a5be769f-bc6d-47b9-968d-4cd5a50fa0bc
+
+	column ID_Vendedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 5df47981-d543-4d46-b485-8bdeda710b63
+		summarizeBy: none
+		sourceColumn: ID_Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendedor
+		dataType: string
+		lineageTag: 75b41c17-ceae-4c98-9729-50351879609e
+		summarizeBy: none
+		sourceColumn: Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_nacimiento
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 729c63f4-8e9d-41b6-b030-5283cb767c94
+		summarizeBy: none
+		sourceColumn: fecha_nacimiento
+
+		variation Variación
+			isDefault
+			relationship: 9c9e3da1-bc81-41b8-8a86-1efa97662fb5
+			defaultHierarchy: LocalDateTable_0a6e349a-c38a-42d5-96cb-dfc4fa16879d.'Jerarquía de fechas'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Foto
+		dataType: string
+		lineageTag: 4ef28314-448b-4932-96f1-787f96407fed
+		summarizeBy: none
+		sourceColumn: Foto
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Vendedor = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\MAURICIO MONTES\Escritorio\MauricioMontes-00042823-Dashboard\VentasVehiculos.xlsx"), null, true),
+				    Dim_Vendedor_Table = Origen{[Item="Dim_Vendedor",Kind="Table"]}[Data],
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Dim_Vendedor_Table,{{"ID_Vendedor", Int64.Type}, {"Vendedor", type text}, {"fecha_nacimiento", type datetime}, {"Foto", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
